@@ -1,0 +1,424 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Outfit', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  --color-slate-100: var(--slate-100);
+  --color-slate-200: var(--slate-200);
+  --color-slate-300: var(--slate-300);
+  --color-slate-350: var(--slate-350);
+  --color-slate-400: var(--slate-400);
+  --color-slate-450: var(--slate-450);
+  --color-slate-500: var(--slate-500);
+  --color-slate-600: var(--slate-600);
+  --color-slate-650: var(--slate-650);
+  --color-slate-700: var(--slate-700);
+  --color-slate-800: var(--slate-800);
+  --color-slate-850: var(--slate-850);
+  --color-slate-900: var(--slate-900);
+  --color-slate-950: var(--slate-950);
+}
+
+:root {
+  /* Slate values for Dark Mode */
+  --slate-100: #f3f4f6;
+  --slate-200: #e2e8f0;
+  --slate-300: #cbd5e1;
+  --slate-350: #cbd5e1;
+  --slate-400: #94a3b8;
+  --slate-450: #78889b;
+  --slate-500: #64748b;
+  --slate-600: #475569;
+  --slate-650: #3d4a5c;
+  --slate-700: #334155;
+  --slate-800: #1e293b;
+  --slate-850: #131f35;
+  --slate-900: #0f172a;
+  --slate-950: #020617;
+
+  /* Theme variables */
+  --bg-color: #0b1120;
+  --text-color: #f3f4f6;
+  
+  --panel-bg: rgba(15, 23, 42, 0.65);
+  --panel-border: rgba(255, 255, 255, 0.08);
+  --panel-shadow: rgba(0, 0, 0, 0.4);
+  
+  --card-bg: rgba(30, 41, 59, 0.4);
+  --card-hover-bg: rgba(30, 41, 59, 0.6);
+  --card-border: rgba(255, 255, 255, 0.05);
+
+  --mesh-opacity-1: 0.12;
+  --mesh-opacity-2: 0.08;
+  --mesh-opacity-3: 0.04;
+  --blob-opacity: 0.15;
+  --blob-blend: screen;
+
+  --scrollbar-track: #0f172a;
+  --scrollbar-thumb: #1e293b;
+  --scrollbar-thumb-hover: #334155;
+  --range-bg: #1e293b;
+
+  --modal-overlay: rgba(2, 6, 23, 0.7);
+}
+
+[data-theme="light"] {
+  /* Slate values reversed/adjusted for Light Mode */
+  --slate-100: #0f172a;
+  --slate-200: #1e293b;
+  --slate-300: #334155;
+  --slate-350: #334155;
+  --slate-400: #475569;
+  --slate-450: #64748b;
+  --slate-500: #78889b;
+  --slate-600: #cbd5e1;
+  --slate-650: #cbd5e1;
+  --slate-700: #cbd5e1;
+  --slate-800: #e2e8f0;
+  --slate-850: #f1f5f9;
+  --slate-900: #f1f5f9;
+  --slate-950: #f8fafc;
+
+  /* Theme variables */
+  --bg-color: #f8fafc;
+  --text-color: #0f172a;
+
+  --panel-bg: rgba(255, 255, 255, 0.75);
+  --panel-border: rgba(15, 23, 42, 0.08);
+  --panel-shadow: rgba(15, 23, 42, 0.08);
+
+  --card-bg: rgba(241, 245, 249, 0.6);
+  --card-hover-bg: rgba(241, 245, 249, 0.85);
+  --card-border: rgba(15, 23, 42, 0.06);
+
+  --mesh-opacity-1: 0.08;
+  --mesh-opacity-2: 0.05;
+  --mesh-opacity-3: 0.02;
+  --blob-opacity: 0.12;
+  --blob-blend: normal;
+
+  --scrollbar-track: #f1f5f9;
+  --scrollbar-thumb: #cbd5e1;
+  --scrollbar-thumb-hover: #94a3b8;
+  --range-bg: #cbd5e1;
+
+  --modal-overlay: rgba(15, 23, 42, 0.4);
+}
+
+html {
+  font-size: 18px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 20px;
+  }
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* Glassmorphism utility classes */
+.glass-panel {
+  background: var(--panel-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--panel-border);
+  box-shadow: 0 8px 32px 0 var(--panel-shadow);
+  transition: background 0.3s, border-color 0.3s, box-shadow 0.3s;
+}
+
+.glass-card {
+  background: var(--card-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--card-border);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-card:hover {
+  background: var(--card-hover-bg);
+  border-color: rgba(99, 102, 241, 0.35); /* Indigo glow border */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15), 0 0 20px rgba(99, 102, 241, 0.15);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover);
+}
+
+/* Glow effects */
+.glow-indigo {
+  box-shadow: 0 0 25px rgba(99, 102, 241, 0.2);
+}
+
+.glow-emerald {
+  box-shadow: 0 0 25px rgba(16, 185, 129, 0.2);
+}
+
+.glow-rose {
+  box-shadow: 0 0 25px rgba(244, 63, 94, 0.2);
+}
+
+/* Dynamic background mesh gradient */
+.bg-gradient-mesh {
+  background-color: var(--bg-color);
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(99, 102, 241, var(--mesh-opacity-1)) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(236, 72, 153, var(--mesh-opacity-2)) 0px, transparent 50%),
+    radial-gradient(at 50% 0%, rgba(16, 185, 129, var(--mesh-opacity-3)) 0px, transparent 50%);
+  transition: background-color 0.3s;
+}
+
+/* Slowly rotating ambient blobs for futuristic backdrop */
+.blob-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.blob {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: var(--blob-opacity);
+  mix-blend-mode: var(--blob-blend);
+  transition: opacity 0.3s, mix-blend-mode 0.3s;
+}
+
+.blob-1 {
+  background: #4f46e5;
+  top: -10%;
+  left: 10%;
+  animation: move-blob-1 25s infinite alternate;
+}
+
+.blob-2 {
+  background: #ec4899;
+  bottom: 10%;
+  right: 15%;
+  animation: move-blob-2 30s infinite alternate;
+}
+
+@keyframes move-blob-1 {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(50px, 100px) scale(1.1); }
+  100% { transform: translate(-50px, 50px) scale(0.9); }
+}
+
+@keyframes move-blob-2 {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-80px, -50px) scale(0.95); }
+  100% { transform: translate(30px, 80px) scale(1.05); }
+}
+
+/* Custom UI range styling (for speed control) */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  background: var(--range-bg);
+  border-radius: 9999px;
+  height: 6px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #6366f1;
+  transition: all 0.15s ease;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  background: #818cf8;
+  transform: scale(1.2);
+}
+
+/* Modal / Dialog Styling */
+dialog {
+  border: none;
+  border-radius: 1.5rem; /* 24px */
+  padding: 0;
+  max-width: 95vw;
+  width: 860px;
+  background: var(--panel-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--panel-border);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+  color: var(--text-color);
+  overflow: visible;
+  transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+  
+  /* Precision Centering */
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+}
+
+dialog::backdrop {
+  background: var(--modal-overlay);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  animation: backdrop-fade-in 0.25s ease-out;
+}
+
+dialog[open] {
+  animation: dialog-show 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes dialog-show {
+  from {
+    transform: translate(-50%, -50%) scale(0.95) translateY(10px);
+    opacity: 0;
+  }
+  to {
+    transform: translate(-50%, -50%) scale(1) translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes backdrop-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ==========================================================================
+   Premium Light Mode UI Enhancements
+   ========================================================================== */
+
+[data-theme="light"] {
+  /* Soft, readable warning boxes */
+  .bg-rose-950\/20 {
+    background-color: rgba(244, 63, 94, 0.08) !important;
+    border-color: rgba(244, 63, 94, 0.25) !important;
+    color: #e11d48 !important;
+  }
+
+  /* Soft, readable success boxes and green badges */
+  .bg-emerald-950\/20,
+  .bg-emerald-950\/40,
+  .bg-emerald-950\/40 * {
+    background-color: rgba(16, 185, 129, 0.08) !important;
+    border-color: rgba(16, 185, 129, 0.25) !important;
+    color: #0f172a !important;
+  }
+
+  /* Disabled solve button style overrides */
+  #btn-solve:disabled {
+    background-color: rgba(244, 63, 94, 0.05) !important;
+    border-color: rgba(244, 63, 94, 0.15) !important;
+    color: rgba(225, 29, 72, 0.5) !important;
+  }
+
+  /* Solver running state overrides */
+  #btn-solve.cursor-wait {
+    background-color: rgba(99, 102, 241, 0.08) !important;
+    border-color: rgba(99, 102, 241, 0.2) !important;
+    color: #4f46e5 !important;
+  }
+
+  /* Interactive items & button overrides inside panels */
+  .glass-panel button:not(.bg-indigo-600) {
+    color: var(--slate-300) !important;
+  }
+
+  .glass-panel button:not(.bg-indigo-600):hover:not(:disabled) {
+    color: #4f46e5 !important;
+    background-color: rgba(99, 102, 241, 0.08) !important;
+    border-color: rgba(99, 102, 241, 0.2) !important;
+  }
+
+  /* Scramble & Reset action buttons default colors */
+  #btn-scramble,
+  #btn-reset {
+    color: var(--slate-300) !important;
+    background-color: rgba(15, 23, 42, 0.03) !important;
+    border-color: rgba(15, 23, 42, 0.08) !important;
+  }
+
+  #btn-scramble:hover:not(:disabled),
+  #btn-reset:hover:not(:disabled) {
+    color: #4f46e5 !important;
+    background-color: rgba(99, 102, 241, 0.08) !important;
+    border-color: rgba(99, 102, 241, 0.2) !important;
+  }
+
+  /* Solving algorithm selection buttons overrides */
+  [id^="algo-select-"] {
+    background-color: rgba(15, 23, 42, 0.02) !important;
+    border-color: rgba(15, 23, 42, 0.06) !important;
+    color: var(--slate-300) !important;
+  }
+
+  [id^="algo-select-"]:hover:not(:disabled) {
+    border-color: rgba(99, 102, 241, 0.35) !important;
+    background-color: rgba(99, 102, 241, 0.02) !important;
+  }
+
+  [id^="algo-select-"][class*="bg-indigo-950"] {
+    background-color: rgba(99, 102, 241, 0.08) !important;
+    border-color: #4f46e5 !important;
+    color: #4f46e5 !important;
+  }
+
+  /* Header button theme styling overrides */
+  header button {
+    color: var(--slate-300) !important;
+    background-color: rgba(15, 23, 42, 0.03) !important;
+    border-color: rgba(15, 23, 42, 0.08) !important;
+  }
+  header button:hover {
+    color: #4f46e5 !important;
+    background-color: rgba(99, 102, 241, 0.08) !important;
+    border-color: rgba(99, 102, 241, 0.2) !important;
+  }
+
+  /* Modal Close button overrides */
+  dialog button:not(.bg-indigo-600) {
+    color: var(--slate-350) !important;
+    background-color: rgba(15, 23, 42, 0.03) !important;
+    border-color: rgba(15, 23, 42, 0.08) !important;
+  }
+  dialog button:not(.bg-indigo-600):hover {
+    color: #e11d48 !important;
+    background-color: rgba(244, 63, 94, 0.08) !important;
+    border-color: rgba(244, 63, 94, 0.2) !important;
+  }
+}
